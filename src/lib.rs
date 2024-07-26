@@ -140,7 +140,7 @@ mod tests {
 
         // Define our instruction data
         let args = CompleteArgs {
-            github: b"testaccount".to_vec()
+            github: b"Jonnie-Dev".to_vec()
         };
 
         // Get recent blockhash
