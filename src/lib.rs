@@ -163,5 +163,41 @@ mod tests {
         println!("Success! Check out your TX here: https://explorer.solana.com/tx/{}/?cluster=devnet",
         signature);
     }
+
+    #[test]
+    fn update_enrollment() {
+        let rpc_client = RpcClient::new(RPC_URL);
+        let signer = read_keypair_file("wba-wallet.json").expect("Couldn't find wallet file");
+
+        let prereq = WbaPrereqProgram::derive_program_address(&[b"prereq",signer.pubkey().to_bytes().as_ref()]);
+
+
+        // Define our instruction data with the correct GitHub username
+        let args = UpdateArgs {
+            github: b"Jonnie-Dev".to_vec()
+        };
+
+        // Get recent blockhash
+        let blockhash = rpc_client
+            .get_latest_blockhash()
+            .expect("Failed to get recent blockhash");
+
+        // Now we can invoke the "update" function
+        let transaction = WbaPrereqProgram::update(
+            &[&signer.pubkey(), &prereq, &system_program::id()],
+            &args,
+            Some(&signer.pubkey()),
+            &[&signer],
+            blockhash
+        );
+
+        // Send the transaction
+        let signature = rpc_client
+            .send_and_confirm_transaction(&transaction)
+            .expect("Failed to send and confirm transaction");
+
+        println!("Transaction sent (success), check your tx here: https://explorer.solana.com/tx/{}/?cluster=devnet", signature);
+
+    }
 }
 
