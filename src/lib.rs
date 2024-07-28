@@ -5,7 +5,7 @@ pub fn add(left: usize, right: usize) -> usize {
 mod programs;
 
 #[cfg(test)]
-#[cfg(test)]
+
 mod tests {
     use solana_sdk;
     use bs58;
@@ -38,6 +38,7 @@ mod tests {
 
     #[test]
     fn base58_to_wallet() {
+        // Convert base58 string to a wallet file
         println!("Input your private key as base58:");
         let stdin = io::stdin();
         let base58 = stdin.lock().lines().next().unwrap().unwrap();
@@ -48,6 +49,7 @@ mod tests {
 
     #[test]
     fn wallet_to_base58() {
+        // Convert a wallet file to a base58 string
         println!("Input your private key as a wallet file byte array:");
         let stdin = io::stdin();
         let wallet =
@@ -66,7 +68,7 @@ mod tests {
         // Connected to Solana Devnet RPC Client
         let client = RpcClient::new(RPC_URL);
 
-        // We're going to claim 2 devnet SOL tokens (2 billion lamports)
+        // Claim 2 devnet SOL tokens (2 billion lamports)
         match client.request_airdrop(&keypair.pubkey(), 2_000_000_000u64) {
             Ok(s) => {
             println!("Success! Check out your TX here:");
