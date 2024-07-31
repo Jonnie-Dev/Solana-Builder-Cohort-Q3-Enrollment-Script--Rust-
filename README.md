@@ -47,7 +47,7 @@ To test this enrollment script, follow these steps:
 4. To test any of the functions:
 
    ```bash
-   cargo test {fn name} -- --nocapture
+   cargo test {fn_name} -- --nocapture
    ```
 
 5. Follow the prompts to test the enrollment script for the WBA Cohort 3 program.
